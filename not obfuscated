@@ -4,7 +4,7 @@ local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
 -- Configuration
-local correctKey = "yourkey123" -- <--- CHANGE THIS TO YOUR DESIRED KEY
+local correctKey = "FeaRunsYouNigger" -- <--- CHANGE THIS TO YOUR DESIRED KEY
 
 -- Create UI
 local screenGui = Instance.new("ScreenGui")
