@@ -1,8 +1,84 @@
-local CORRECT_KEY = "FeaRunsYou"
+-- Key System
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
 
-local function runMainScript()
-    -- YOUR FULL SCRIPT STARTS HERE
-    -- (Paste your entire original script below this line)
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KeySystemGui"
+screenGui.Parent = playerGui
+
+-- Create Frame (Black background with rounded corners)
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 150)
+frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+frame.BackgroundColor3 = Color3.new(0, 0, 0)
+frame.BackgroundTransparency = 0
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Add UIStroke for white border with rounded edges
+local stroke = Instance.new("UIStroke")
+stroke.Color = Color3.new(1,1,1)
+stroke.Thickness = 2
+stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+stroke.Parent = frame
+
+-- Add UICorner for rounded edges
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 20)
+corner.Parent = frame
+
+-- Create TextBox for key input
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0.8, 0, 0, 40)
+textBox.Position = UDim2.new(0.1, 0, 0.35, 0)
+textBox.PlaceholderText = "Enter Key"
+textBox.BackgroundColor3 = Color3.new(1,1,1)
+textBox.TextColor3 = Color3.new(0,0,0)
+textBox.Font = Enum.Font.SourceSans
+textBox.TextSize = 24
+textBox.ClearTextOnFocus = true
+textBox.Parent = frame
+
+-- Create Submit Button
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0.5, 0, 0, 40)
+button.Position = UDim2.new(0.25, 0, 0.7, 0)
+button.BackgroundColor3 = Color3.new(1,1,1)
+button.TextColor3 = Color3.new(0,0,0)
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 24
+button.Text = "Submit"
+button.AutoButtonColor = true
+button.Parent = frame
+
+-- Key to check
+local correctKey = "FeaRunsYou"
+
+-- Flag to allow main script to run
+local keyAccepted = false
+
+-- Function to handle key checking
+local function checkKey()
+    if textBox.Text == correctKey then
+        keyAccepted = true
+        screenGui:Destroy()  -- Remove the key UI
+    else
+        -- Wrong key, clear box and give feedback
+        textBox.Text = ""
+        textBox.PlaceholderText = "Incorrect Key, try again"
+        -- Optional: add some shake animation or color change here for better UX
+    end
+end
+
+button.MouseButton1Click:Connect(checkKey)
+
+-- Wait until the correct key is entered before continuing
+repeat
+    wait()
+until keyAccepted
+
 local TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -820,62 +896,3 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
 		end
 	end
 end)
-    local player = game.Players.LocalPlayer
-    local mouse = player:GetMouse()
-    local uis = game:GetService("UserInputService")
-    local TweenService = game:GetService("TweenService")
-
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Parent = player.PlayerGui
-    screenGui.Name = "ScriptGui"
-
-    local frame = Instance.new("Frame")
-    frame.Parent = screenGui
-    frame.Size = UDim2.new(0, 300, 0, 200)
-    frame.Position = UDim2.new(0.5, -150, 0.5, -100)
-    frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    frame.BorderSizePixel = 0
-    frame.Active = true
-    frame.Draggable = true
-
-    local title = Instance.new("TextLabel")
-    title.Parent = frame
-    title.Size = UDim2.new(1, 0, 0, 30)
-    title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-    title.BorderSizePixel = 0
-    title.Text = "My Script GUI"
-    title.TextColor3 = Color3.new(1, 1, 1)
-    title.Font = Enum.Font.SourceSansBold
-    title.TextSize = 20
-
-    local button = Instance.new("TextButton")
-    button.Parent = frame
-    button.Size = UDim2.new(0, 280, 0, 50)
-    button.Position = UDim2.new(0, 10, 0, 50)
-    button.Text = "Click Me"
-    button.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
-    button.TextColor3 = Color3.new(1, 1, 1)
-    button.Font = Enum.Font.SourceSans
-    button.TextSize = 18
-
-    button.MouseButton1Click:Connect(function()
-        print("Button clicked!")
-        -- Your script's main function goes here
-        -- For example:
-        local char = player.Character
-        if char and char:FindFirstChild("Humanoid") then
-            char.Humanoid.Health = char.Humanoid.Health + 10
-        end
-    end)
-
-    -- YOUR FULL SCRIPT ENDS HERE
-end
-
--- KEY CHECK & RUN SCRIPT
-local inputKey = "FeaRunsYou" -- Replace this with your actual input method if needed
-
-if inputKey == CORRECT_KEY then
-    runMainScript()
-else
-    print("Incorrect key!")
-end
