@@ -1,111 +1,84 @@
--- Put this entire script inside a LocalScript under StarterPlayer > StarterPlayerScripts
-
+--// Key System UI Setup
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
--- Create ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "VoidUI"
-screenGui.Parent = playerGui
-screenGui.ResetOnSpawn = false
+-- Configuration
+local correctKey = "yourkey123" -- <--- CHANGE THIS TO YOUR DESIRED KEY
 
--- Main frame
+-- Create UI
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KeySystem"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 300, 0, 150)
-frame.Position = UDim2.new(0.5, -150, 0.5, -75) -- center screen
-frame.BackgroundColor3 = Color3.new(0, 0, 0) -- black
-frame.BackgroundTransparency = 0.1
+frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 frame.BorderSizePixel = 0
-frame.AnchorPoint = Vector2.new(0.5, 0.5)
 frame.Parent = screenGui
-frame.ClipsDescendants = true
-frame.AutomaticSize = Enum.AutomaticSize.None
-frame.ZIndex = 5
-frame.Rotation = 0
 
--- Rounded edges
-local uicorner = Instance.new("UICorner")
-uicorner.CornerRadius = UDim.new(0, 20)
-uicorner.Parent = frame
+local uiCorner = Instance.new("UICorner")
+uiCorner.CornerRadius = UDim.new(0, 8)
+uiCorner.Parent = frame
 
--- Title label
 local title = Instance.new("TextLabel")
 title.Size = UDim2.new(1, 0, 0, 40)
 title.BackgroundTransparency = 1
-title.Text = "Void Themed UI"
-title.TextColor3 = Color3.new(1, 1, 1) -- white
+title.Text = "Enter Access Key"
 title.Font = Enum.Font.GothamBold
-title.TextSize = 24
+title.TextSize = 20
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Parent = frame
 
--- Example content label
-local content = Instance.new("TextLabel")
-content.Size = UDim2.new(1, -20, 1, -60)
-content.Position = UDim2.new(0, 10, 0, 40)
-content.BackgroundTransparency = 1
-content.Text = "Put your script or UI content here."
-content.TextColor3 = Color3.new(1, 1, 1)
-content.Font = Enum.Font.Gotham
-content.TextSize = 18
-content.TextWrapped = true
-content.Parent = frame
+local inputBox = Instance.new("TextBox")
+inputBox.PlaceholderText = "Your key here"
+inputBox.Size = UDim2.new(0.9, 0, 0, 35)
+inputBox.Position = UDim2.new(0.05, 0, 0.45, 0)
+inputBox.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+inputBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+inputBox.ClearTextOnFocus = false
+inputBox.Text = ""
+inputBox.Font = Enum.Font.Gotham
+inputBox.TextSize = 16
+inputBox.Parent = frame
 
--- Dragging functionality
-local dragging
-local dragInput
-local dragStart
-local startPos
+local inputCorner = Instance.new("UICorner")
+inputCorner.CornerRadius = UDim.new(0, 6)
+inputCorner.Parent = inputBox
 
-local function update(input)
-    local delta = input.Position - dragStart
-    frame.Position = UDim2.new(
-        math.clamp(startPos.X.Scale, 0, 1),
-        math.clamp(startPos.X.Offset + delta.X, 0, workspace.CurrentCamera.ViewportSize.X - frame.AbsoluteSize.X),
-        math.clamp(startPos.Y.Scale, 0, 1),
-        math.clamp(startPos.Y.Offset + delta.Y, 0, workspace.CurrentCamera.ViewportSize.Y - frame.AbsoluteSize.Y)
-    )
+local submitButton = Instance.new("TextButton")
+submitButton.Size = UDim2.new(0.9, 0, 0, 30)
+submitButton.Position = UDim2.new(0.05, 0, 0.75, 0)
+submitButton.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+submitButton.Text = "Submit"
+submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+submitButton.Font = Enum.Font.GothamBold
+submitButton.TextSize = 16
+submitButton.Parent = frame
+
+local buttonCorner = Instance.new("UICorner")
+buttonCorner.CornerRadius = UDim.new(0, 6)
+buttonCorner.Parent = submitButton
+
+-- Script Locker
+local function destroyUI()
+    screenGui:Destroy()
 end
 
-frame.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        dragStart = input.Position
-        startPos = frame.Position
-        
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
-end)
-
-frame.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        dragInput = input
-    end
-end)
-
-game:GetService("UserInputService").InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        update(input)
-    end
-end)
-
--- Simple fade-in animation
-frame.BackgroundTransparency = 1
-title.TextTransparency = 1
-content.TextTransparency = 1
-
-for i = 1, 10 do
-    wait(0.03)
-    frame.BackgroundTransparency = frame.BackgroundTransparency - 0.1
-    title.TextTransparency = title.TextTransparency - 0.1
-    content.TextTransparency = content.TextTransparency - 0.1
-end
-
--- Your script content goes here
+local function runScript()
+    destroyUI()
+    
+    --// ✅ PLACE YOUR SCRIPT BELOW THIS LINE
+    print("Correct key entered! Running script...")
+    
+    -- Example: Replace below with your actual script
+    local part = Instance.new("Part", workspace)
+    part.Anchored = true
+    part.Position = Vector3.new(0, 10, 0)
+    part.Size = Vector3.new(5, 1, 5)
+    part.BrickColor = BrickColor.new("Really black")
 local TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -922,4 +895,15 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
 			character:MoveTo(targetPosition)
 		end
 	end
+end)
+    --// ✅ PLACE YOUR SCRIPT ABOVE THIS LINE
+end
+
+submitButton.MouseButton1Click:Connect(function()
+    if inputBox.Text == correctKey then
+        runScript()
+    else
+        inputBox.Text = ""
+        inputBox.PlaceholderText = "Incorrect key. Try again."
+    end
 end)
