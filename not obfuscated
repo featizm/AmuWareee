@@ -1,10 +1,47 @@
---// Configuration
-local CORRECT_KEY = "FeaRunsYou"
+local key = "FeaRunsYou"
 
---// Block everything until key is correct
-local function runMainScript()
-    -- 🔒 PUT YOUR SCRIPT BELOW THIS LINE (It won't run unless the key is correct)
-local TweenService = game:GetService("TweenService")
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KeyCheckGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 140)
+frame.Position = UDim2.new(0.5, -150, 0.5, -70)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0, 280, 0, 50)
+textBox.Position = UDim2.new(0, 10, 0, 20)
+textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+textBox.PlaceholderText = "Enter Key"
+textBox.ClearTextOnFocus = true
+textBox.Font = Enum.Font.SourceSans
+textBox.TextSize = 22
+textBox.Parent = frame
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 280, 0, 40)
+button.Position = UDim2.new(0, 10, 0, 80)
+button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+button.TextColor3 = Color3.fromRGB(0, 0, 0)
+button.Text = "Submit"
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 24
+button.BorderSizePixel = 0
+button.Parent = frame
+
+-- Main script function - put your entire main code here inside this function
+local function mainScript()
+    screenGui:Destroy()
+    -- Your actual script starts here
+ocal TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
@@ -784,123 +821,17 @@ darkModeBtn.MouseButton1Click:Connect(function()
     end
     visualsOn = not visualsOn
 end)
-
--- All previous content of your script remains unchanged above this line
-
--- Void Sound Effect on Shoot
-local function playVoidShootSound()
-    local char = Players.LocalPlayer.Character
-    if not char then return end
-    local root = char:FindFirstChild("HumanoidRootPart")
-    if not root then return end
-
-    local sound = Instance.new("Sound")
-    sound.Name = "VoidShoot"
-    sound.SoundId = "rbxassetid://9118823109" -- Replace with any void-style sound ID you prefer
-    sound.Volume = 1
-    sound.PlayOnRemove = true
-    sound.Parent = root
-    sound:Destroy() -- Plays because of PlayOnRemove
+    print("Correct key! Script is running...")
+    -- For example:
+    -- game.Workspace.Part.BrickColor = BrickColor.new("Bright red")
+    -- (replace the above with your real main script)
 end
 
--- MouseTeleport Script (Keybind: C)
-
-local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local mouse = player:GetMouse()
-
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-	if gameProcessed then return end -- Don't process input if the game already handled it
-
-	if input.KeyCode == Enum.KeyCode.C then
-		local character = player.Character
-		if character and character:FindFirstChild("HumanoidRootPart") then
-			local targetPosition = mouse.Hit.Position
-			character:MoveTo(targetPosition)
-		end
-	end
-end)
-    print("✅ Correct Key! Your script is now running.")
-
-    -- Example line (you can replace this with your full script)
-    local msg = Instance.new("Message", workspace)
-    msg.Text = "Script Loaded!"
-    wait(2)
-    msg:Destroy()
-end
-
---// UI Setup
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-
-local gui = Instance.new("ScreenGui")
-gui.Name = "KeySystem"
-gui.ResetOnSpawn = false
-gui.IgnoreGuiInset = true
-gui.Parent = player:WaitForChild("PlayerGui")
-
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 350, 0, 200)
-frame.Position = UDim2.new(0.5, -175, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-frame.BackgroundTransparency = 0.4
-frame.Parent = gui
-
-local uicorner = Instance.new("UICorner")
-uicorner.CornerRadius = UDim.new(0, 15)
-uicorner.Parent = frame
-
-local title = Instance.new("TextLabel")
-title.Text = "Enter Access Key"
-title.Size = UDim2.new(1, 0, 0, 50)
-title.Position = UDim2.new(0, 0, 0, 10)
-title.BackgroundTransparency = 1
-title.TextColor3 = Color3.new(1, 1, 1)
-title.Font = Enum.Font.GothamBold
-title.TextSize = 24
-title.Parent = frame
-
-local textbox = Instance.new("TextBox")
-textbox.PlaceholderText = "Enter key here..."
-textbox.Size = UDim2.new(0.8, 0, 0, 40)
-textbox.Position = UDim2.new(0.1, 0, 0, 70)
-textbox.Text = ""
-textbox.TextColor3 = Color3.new(1, 1, 1)
-textbox.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-textbox.Font = Enum.Font.Gotham
-textbox.TextSize = 18
-textbox.ClearTextOnFocus = false
-textbox.Parent = frame
-
-local tbcorner = Instance.new("UICorner", textbox)
-tbcorner.CornerRadius = UDim.new(0, 10)
-
-local button = Instance.new("TextButton")
-button.Text = "Submit"
-button.Size = UDim2.new(0.8, 0, 0, 40)
-button.Position = UDim2.new(0.1, 0, 0, 130)
-button.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-button.TextColor3 = Color3.new(1, 1, 1)
-button.Font = Enum.Font.GothamBold
-button.TextSize = 20
-button.Parent = frame
-
-local btncorner = Instance.new("UICorner", button)
-btncorner.CornerRadius = UDim.new(0, 10)
-
---// Input Logic
 button.MouseButton1Click:Connect(function()
-    if textbox.Text == CORRECT_KEY then
-        gui:Destroy()
-        runMainScript() -- ← your script only runs HERE
+    if textBox.Text == key then
+        mainScript()
     else
-        textbox.Text = ""
-        textbox.PlaceholderText = "Wrong key!"
+        textBox.Text = ""
+        textBox.PlaceholderText = "Incorrect Key, Try Again"
     end
 end)
-
-
-
-
-
