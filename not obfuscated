@@ -1,28 +1,30 @@
+--// CONFIGURATION
+local CORRECT_KEY = "FeaRunsYou"
+
+--// SETUP
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
-local key = "FeaRunsYou"
 
--- Create ScreenGui
-local screenGui = Instance.new("ScreenGui")
+-- Make sure the GUI can't reset or be duplicated
+if player:FindFirstChild("PlayerGui"):FindFirstChild("KeySystem") then
+    player.PlayerGui.KeySystem:Destroy()
+end
+
+local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 screenGui.Name = "KeySystem"
 screenGui.ResetOnSpawn = false
-screenGui.Parent = player:WaitForChild("PlayerGui")
 
--- Create Frame
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 300, 0, 150)
-frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+--// UI
+local frame = Instance.new("Frame", screenGui)
+frame.Size = UDim2.new(0, 300, 0, 160)
+frame.Position = UDim2.new(0.5, -150, 0.5, -80)
 frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 frame.BorderSizePixel = 0
-frame.Parent = screenGui
 
--- UI Corner
-local corner = Instance.new("UICorner")
+local corner = Instance.new("UICorner", frame)
 corner.CornerRadius = UDim.new(0, 10)
-corner.Parent = frame
 
--- Create TextBox
-local textBox = Instance.new("TextBox")
+local textBox = Instance.new("TextBox", frame)
 textBox.Size = UDim2.new(0, 260, 0, 40)
 textBox.Position = UDim2.new(0, 20, 0, 30)
 textBox.PlaceholderText = "Enter Key"
@@ -31,39 +33,39 @@ textBox.TextColor3 = Color3.new(1, 1, 1)
 textBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 textBox.BorderSizePixel = 0
 textBox.ClearTextOnFocus = false
-textBox.Parent = frame
 
-local textBoxCorner = Instance.new("UICorner")
+local textBoxCorner = Instance.new("UICorner", textBox)
 textBoxCorner.CornerRadius = UDim.new(0, 8)
-textBoxCorner.Parent = textBox
 
--- Create Button
-local button = Instance.new("TextButton")
+local button = Instance.new("TextButton", frame)
 button.Size = UDim2.new(0, 260, 0, 40)
 button.Position = UDim2.new(0, 20, 0, 85)
 button.Text = "Submit"
 button.TextColor3 = Color3.new(1, 1, 1)
 button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 button.BorderSizePixel = 0
-button.Parent = frame
 
-local buttonCorner = Instance.new("UICorner")
+local buttonCorner = Instance.new("UICorner", button)
 buttonCorner.CornerRadius = UDim.new(0, 8)
-buttonCorner.Parent = button
 
--- Disable the main script logic until key is validated
-local function mainScript()
-    -- Your protected script logic goes here.
-    -- For example:
-    print("Correct key entered. Script is now running.")
-    -- Add your actual script logic below this line
+--// MAIN SCRIPT CONTENT (locked until correct key)
+local function runMainScript()
+    -- Your actual script goes here.
+    -- Replace this with your main logic.
+    print("✅ Correct key entered. Script is now running.")
+
+    -- Example:
+    local message = Instance.new("Message", workspace)
+    message.Text = "Script has successfully loaded!"
+    wait(3)
+    message:Destroy()
 end
 
--- Check key
+--// BUTTON FUNCTION
 button.MouseButton1Click:Connect(function()
-    if textBox.Text == key then
+    if textBox.Text == CORRECT_KEY then
         screenGui:Destroy()
-        mainScript() -- Run the actual script only if the key is correct
+        runMainScript() -- <- script runs ONLY if key is correct
     else
         textBox.Text = ""
         textBox.PlaceholderText = "Incorrect Key!"
