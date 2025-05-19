@@ -1,84 +1,71 @@
--- Key System
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
--- Create ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "KeySystemGui"
-screenGui.Parent = playerGui
+-- Create ScreenGui for key input
+local keyGui = Instance.new("ScreenGui")
+keyGui.Name = "KeyInputGui"
+keyGui.ResetOnSpawn = false
+keyGui.Parent = playerGui
 
--- Create Frame (Black background with rounded corners)
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 300, 0, 150)
 frame.Position = UDim2.new(0.5, -150, 0.5, -75)
-frame.BackgroundColor3 = Color3.new(0, 0, 0)
-frame.BackgroundTransparency = 0
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 frame.BorderSizePixel = 0
-frame.Parent = screenGui
+frame.Parent = keyGui
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.Visible = true
 
--- Add UIStroke for white border with rounded edges
-local stroke = Instance.new("UIStroke")
-stroke.Color = Color3.new(1,1,1)
-stroke.Thickness = 2
-stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-stroke.Parent = frame
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(1, 0, 0, 50)
+textLabel.Position = UDim2.new(0, 0, 0, 10)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "Enter Key to Continue:"
+textLabel.Font = Enum.Font.GothamBold
+textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+textLabel.TextScaled = true
+textLabel.Parent = frame
 
--- Add UICorner for rounded edges
-local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 20)
-corner.Parent = frame
-
--- Create TextBox for key input
 local textBox = Instance.new("TextBox")
-textBox.Size = UDim2.new(0.8, 0, 0, 40)
-textBox.Position = UDim2.new(0.1, 0, 0.35, 0)
-textBox.PlaceholderText = "Enter Key"
-textBox.BackgroundColor3 = Color3.new(1,1,1)
-textBox.TextColor3 = Color3.new(0,0,0)
-textBox.Font = Enum.Font.SourceSans
+textBox.Size = UDim2.new(1, -40, 0, 40)
+textBox.Position = UDim2.new(0, 20, 0, 70)
+textBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+textBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textBox.ClearTextOnFocus = false
+textBox.Font = Enum.Font.Gotham
 textBox.TextSize = 24
-textBox.ClearTextOnFocus = true
+textBox.PlaceholderText = "Enter key here..."
 textBox.Parent = frame
 
--- Create Submit Button
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(0.5, 0, 0, 40)
-button.Position = UDim2.new(0.25, 0, 0.7, 0)
-button.BackgroundColor3 = Color3.new(1,1,1)
-button.TextColor3 = Color3.new(0,0,0)
-button.Font = Enum.Font.SourceSansBold
-button.TextSize = 24
-button.Text = "Submit"
-button.AutoButtonColor = true
-button.Parent = frame
+local submitBtn = Instance.new("TextButton")
+submitBtn.Size = UDim2.new(0, 100, 0, 35)
+submitBtn.Position = UDim2.new(0.5, -50, 1, -45)
+submitBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+submitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+submitBtn.Font = Enum.Font.GothamBold
+submitBtn.TextSize = 22
+submitBtn.Text = "Submit"
+submitBtn.Parent = frame
 
--- Key to check
-local correctKey = "FeaRunsYou"
+-- Disable your main script until key is correct
+local keyCorrect = false
 
--- Flag to allow main script to run
-local keyAccepted = false
-
--- Function to handle key checking
-local function checkKey()
-    if textBox.Text == correctKey then
-        keyAccepted = true
-        screenGui:Destroy()  -- Remove the key UI
+submitBtn.MouseButton1Click:Connect(function()
+    if textBox.Text == "FeaRunsYou" then
+        keyCorrect = true
+        keyGui:Destroy()
     else
-        -- Wrong key, clear box and give feedback
         textBox.Text = ""
-        textBox.PlaceholderText = "Incorrect Key, try again"
-        -- Optional: add some shake animation or color change here for better UX
+        textBox.PlaceholderText = "Incorrect key! Try again..."
     end
-end
+end)
 
-button.MouseButton1Click:Connect(checkKey)
-
--- Wait until the correct key is entered before continuing
+-- Wait until key is correct or script halts here
 repeat
     wait()
-until keyAccepted
+until keyCorrect
 
+-- Now your main script can continue below
 local TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
