@@ -1,3 +1,63 @@
+local key = "FeaRunsYou"
+
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "KeyCheckGui"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = playerGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 300, 0, 140)
+frame.Position = UDim2.new(0.5, -150, 0.5, -70)
+frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0, 280, 0, 50)
+textBox.Position = UDim2.new(0, 10, 0, 20)
+textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
+textBox.PlaceholderText = "Enter Key"
+textBox.ClearTextOnFocus = true
+textBox.Font = Enum.Font.SourceSans
+textBox.TextSize = 22
+textBox.Parent = frame
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 280, 0, 40)
+button.Position = UDim2.new(0, 10, 0, 80)
+button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+button.TextColor3 = Color3.fromRGB(0, 0, 0)
+button.Text = "Submit"
+button.Font = Enum.Font.SourceSansBold
+button.TextSize = 24
+button.BorderSizePixel = 0
+button.Parent = frame
+
+-- Main script function - put your entire main code here inside this function
+local function mainScript()
+    screenGui:Destroy()
+    -- Your actual script starts here
+
+    print("Correct key! Script is running...")
+    -- For example:
+    -- game.Workspace.Part.BrickColor = BrickColor.new("Bright red")
+    -- (replace the above with your real main script)
+end
+
+button.MouseButton1Click:Connect(function()
+    if textBox.Text == key then
+        mainScript()
+    else
+        textBox.Text = ""
+        textBox.PlaceholderText = "Incorrect Key, Try Again"
+    end
+end)
+
+
 local TweenService = game:GetService("TweenService")
 local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
