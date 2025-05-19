@@ -1,837 +1,155 @@
-local key = "FeaRunsYou"
+--// Configuration
+local CORRECT_KEY = "FeaRunsYou"
 
+--// Block everything until key is correct
+local function runMainScript()
+    -- 🔒 PUT YOUR SCRIPT BELOW THIS LINE (It won't run unless the key is correct)
+
+    -- Example: You can paste all of your main script logic starting from here.
+    --// Configuration
+local CORRECT_KEY = "FeaRunsYou"
+
+--// Block everything until key is correct
+local function runMainScript()
+    -- :lock: PUT YOUR SCRIPT BELOW THIS LINE (It won't run unless the key is correct)
+
+    -- Example: You can paste all of your main script logic starting from here.
+    local TweenService = game:GetService("TweenService")
+    local player = game.Players.LocalPlayer
+    local playerGui = player:WaitForChild("PlayerGui")
+
+    -- [ Insert your entire script content here — everything you shared above ]
+    -- For brevity, I'll stop repeating it in this reply. You should paste your full code here.
+
+end
+
+--// Prompt for key input
 local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
+local inputGui = Instance.new("ScreenGui")
+inputGui.Name = "KeyInputGui"
+inputGui.ResetOnSpawn = false
+inputGui.Parent = player:WaitForChild("PlayerGui")
 
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "KeyCheckGui"
-screenGui.ResetOnSpawn = false
-screenGui.Parent = playerGui
+local inputFrame = Instance.new("Frame")
+inputFrame.Size = UDim2.new(0, 300, 0, 150)
+inputFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
+inputFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+inputFrame.BackgroundTransparency = 0.4
+inputFrame.Parent = inputGui
 
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 300, 0, 140)
-frame.Position = UDim2.new(0.5, -150, 0.5, -70)
-frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-frame.BorderSizePixel = 0
-frame.Parent = screenGui
+local corner = Instance.new("UICorner", inputFrame)
+corner.CornerRadius = UDim.new(0, 12)
 
-local textBox = Instance.new("TextBox")
-textBox.Size = UDim2.new(0, 280, 0, 50)
-textBox.Position = UDim2.new(0, 10, 0, 20)
-textBox.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-textBox.TextColor3 = Color3.fromRGB(0, 0, 0)
-textBox.PlaceholderText = "Enter Key"
-textBox.ClearTextOnFocus = true
-textBox.Font = Enum.Font.SourceSans
-textBox.TextSize = 22
-textBox.Parent = frame
-
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(0, 280, 0, 40)
-button.Position = UDim2.new(0, 10, 0, 80)
-button.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-button.TextColor3 = Color3.fromRGB(0, 0, 0)
-button.Text = "Submit"
-button.Font = Enum.Font.SourceSansBold
-button.TextSize = 24
-button.BorderSizePixel = 0
-button.Parent = frame
-
--- Main script function - put your entire main code here inside this function
-local function mainScript()
-    screenGui:Destroy()
-    -- Your actual script starts here
-ocal TweenService = game:GetService("TweenService")
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-
--- Create ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "VoidIntroGui"
-screenGui.ResetOnSpawn = false
-screenGui.Parent = playerGui
-
--- Full screen dark overlay (semi-transparent black for ambient)
-local darkOverlay = Instance.new("Frame")
-darkOverlay.Size = UDim2.new(1, 0, 1, 0)
-darkOverlay.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-darkOverlay.BackgroundTransparency = 0.7
-darkOverlay.Parent = screenGui
-
--- Blur effect (full screen, added to Lighting)
-local blurEffect = Instance.new("BlurEffect")
-blurEffect.Size = 0
-blurEffect.Parent = game.Lighting
-
--- "AmuWare" text label — crisp white neon glow, smaller size
-local textLabel = Instance.new("TextLabel")
-textLabel.Size = UDim2.new(0, 260, 0, 80)
-textLabel.Position = UDim2.new(0.5, -130, 0.5, -40)
-textLabel.BackgroundTransparency = 1
-textLabel.Text = "AmuWare"
-textLabel.Font = Enum.Font.GothamBlack
-textLabel.TextColor3 = Color3.fromRGB(255, 255, 255) -- pure white
-textLabel.TextScaled = true
-textLabel.TextTransparency = 1
-textLabel.Parent = screenGui
-
--- White stroke glow with gradient for subtle neon effect
-local stroke = Instance.new("UIStroke")
+local stroke = Instance.new("UIStroke", inputFrame)
+stroke.Thickness = 2
 stroke.Color = Color3.fromRGB(255, 255, 255)
-stroke.Thickness = 3
-stroke.Transparency = 0.4
-stroke.Parent = textLabel
 
-local gradientStroke = Instance.new("UIGradient")
-gradientStroke.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(180, 180, 180)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255)),
-})
-gradientStroke.Parent = stroke
-
--- Particle container (tiny drifting white stars & soft gray mist)
-local particleFrame = Instance.new("Frame")
-particleFrame.Size = UDim2.new(0, 320, 0, 100)
-particleFrame.Position = UDim2.new(0.5, -160, 0.5, -50)
-particleFrame.BackgroundTransparency = 1
-particleFrame.Parent = screenGui
-
--- White stars (tiny)
-local starParticles = {}
-local starCount = 18
-for i = 1, starCount do
-    local star = Instance.new("Frame")
-    star.Size = UDim2.new(0, 3, 0, 3)
-    star.Position = UDim2.new(math.random(), 0, math.random(), 0)
-    star.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    star.BackgroundTransparency = 0.85
-    star.AnchorPoint = Vector2.new(0.5, 0.5)
-    star.BorderSizePixel = 0
-    star.Parent = particleFrame
-
-    local starCorner = Instance.new("UICorner")
-    starCorner.CornerRadius = UDim.new(1, 0)
-    starCorner.Parent = star
-
-    table.insert(starParticles, star)
-end
-
--- Soft gray misty blobs (nebula effect)
-local nebulaParticles = {}
-local nebulaCount = 7
-local nebulaColors = {
-    Color3.fromRGB(190, 190, 190),
-    Color3.fromRGB(150, 150, 150),
-    Color3.fromRGB(220, 220, 220),
-}
-for i = 1, nebulaCount do
-    local nebula = Instance.new("Frame")
-    nebula.Size = UDim2.new(0, 14, 0, 14)
-    nebula.Position = UDim2.new(math.random(), 0, math.random(), 0)
-    nebula.BackgroundColor3 = nebulaColors[math.random(1, #nebulaColors)]
-    nebula.BackgroundTransparency = 0.75
-    nebula.AnchorPoint = Vector2.new(0.5, 0.5)
-    nebula.BorderSizePixel = 0
-    nebula.Parent = particleFrame
-
-    local nebulaCorner = Instance.new("UICorner")
-    nebulaCorner.CornerRadius = UDim.new(1, 0)
-    nebulaCorner.Parent = nebula
-
-    table.insert(nebulaParticles, nebula)
-end
-
--- Animate particles drifting gently
-local function animateParticles(particles, minDuration, maxDuration, maxOpacity)
-    spawn(function()
-        while true do
-            for _, p in pairs(particles) do
-                local startX = math.random()
-                local startY = math.random()
-                local duration = minDuration + math.random() * (maxDuration - minDuration)
-                local endX = math.clamp(startX + (math.random() * 0.15 - 0.075), 0, 1)
-                local endY = math.clamp(startY + (math.random() * 0.15 - 0.075), 0, 1)
-                p.Position = UDim2.new(startX, 0, startY, 0)
-                p.BackgroundTransparency = maxOpacity
-
-                local tween = TweenService:Create(p, TweenInfo.new(duration, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, true), {
-                    Position = UDim2.new(endX, 0, endY, 0),
-                    BackgroundTransparency = maxOpacity + 0.1,
-                })
-                tween:Play()
-            end
-            wait(5)
-        end
-    end)
-end
-
-animateParticles(starParticles, 4, 6, 0.85)
-animateParticles(nebulaParticles, 7, 10, 0.75)
-
--- Neon pulse tween for text stroke glow (white subtle pulse)
-spawn(function()
-    while true do
-        local pulseIn = TweenService:Create(stroke, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {Transparency = 0})
-        local pulseOut = TweenService:Create(stroke, TweenInfo.new(2, Enum.EasingStyle.Sine, Enum.EasingDirection.In), {Transparency = 0.7})
-        pulseIn:Play()
-        pulseIn.Completed:Wait()
-        pulseOut:Play()
-        pulseOut.Completed:Wait()
-    end
-end)
-
--- Tween sequences for intro
-local blurIn = TweenService:Create(blurEffect, TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {Size = 20})
-local darkFadeIn = TweenService:Create(darkOverlay, TweenInfo.new(2), {BackgroundTransparency = 0.7})
-local textFadeIn = TweenService:Create(textLabel, TweenInfo.new(2), {TextTransparency = 0})
-
-blurIn:Play()
-darkFadeIn:Play()
-textFadeIn:Play()
-
-blurIn.Completed:Wait()
-
-local scaleUp = TweenService:Create(textLabel, TweenInfo.new(1, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
-    Size = UDim2.new(0, 320, 0, 100),
-    Position = UDim2.new(0.5, -160, 0.5, -50),
-})
-scaleUp:Play()
-scaleUp.Completed:Wait()
-
-wait(2) -- hold the text
-
--- Fade out
-local textFadeOut = TweenService:Create(textLabel, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {TextTransparency = 1, Position = UDim2.new(0.5, -160, 0.45, -50)})
-local darkFadeOut = TweenService:Create(darkOverlay, TweenInfo.new(1.5), {BackgroundTransparency = 1})
-local blurOut = TweenService:Create(blurEffect, TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {Size = 0})
-
-textFadeOut:Play()
-darkFadeOut:Play()
-blurOut:Play()
-
-textFadeOut.Completed:Wait()
-
--- Cleanup
-screenGui:Destroy()
-blurEffect:Destroy()
-
-
--- Services
-local Players = game:GetService("Players")
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-local Mouse = Players.LocalPlayer:GetMouse()
-
-local isFollowing = false
-local followDistance = 3
-local followSpeed = 16
-
--- Variables
-local AimPart = "Head"
-local targetPlayers = {}
-local enabled = false
-
--- GUI
-local gui = Instance.new("ScreenGui", game:GetService("CoreGui"))
-gui.Name = "TargetGui"
-gui.ResetOnSpawn = false
-
-local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.new(0, 260, 0, 320)
-frame.Position = UDim2.new(0.5, -130, 0.5, -160)
-frame.BackgroundColor3 = Color3.new(0, 0, 0)
-frame.BackgroundTransparency = 0.2
-frame.Active = true
-frame.Draggable = true
-
-local corner = Instance.new("UICorner", frame)
-corner.CornerRadius = UDim.new(0, 18)
-
-local stroke = Instance.new("UIStroke", frame)
-stroke.Thickness = 3
-stroke.Color = Color3.fromRGB(255, 255, 255)
-stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-local grad = Instance.new("UIGradient", stroke)
-grad.Color = ColorSequence.new{
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(200, 200, 200))
-}
-
--- Fade-in animation
-frame.Size = UDim2.new(0, 0, 0, 0)
-frame.Position = UDim2.new(0.5, 0, 0.5, 0)
-gui.Enabled = false
-wait(0.1)
-gui.Enabled = true
-frame:TweenSizeAndPosition(UDim2.new(0, 260, 0, 320), UDim2.new(0.5, -130, 0.5, -160), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.35, true)
-
--- Title Label
-local label = Instance.new("TextLabel", frame)
-label.Size = UDim2.new(1, -30, 0, 36)
-label.Position = UDim2.new(0, 15, 0, 16)
+local label = Instance.new("TextLabel", inputFrame)
+label.Size = UDim2.new(1, 0, 0, 40)
+label.Position = UDim2.new(0, 0, 0, 10)
 label.BackgroundTransparency = 1
+label.Text = "Enter Key to Access"
 label.TextColor3 = Color3.new(1, 1, 1)
-label.TextStrokeTransparency = 0.7
-label.TextStrokeColor3 = Color3.new(0, 0, 0)
-label.Text = "No Targets"
+label.Font = Enum.Font.GothamBold
 label.TextScaled = true
-label.Font = Enum.Font.GothamSemibold
-label.ZIndex = 2
 
--- Username input box
-local box = Instance.new("TextBox", frame)
-box.PlaceholderText = "@username"
-box.Size = UDim2.new(1, -30, 0, 32)
-box.Position = UDim2.new(0, 15, 0, 62)
-box.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
-box.TextColor3 = Color3.fromRGB(255, 255, 255)
-box.Font = Enum.Font.Gotham
-box.TextSize = 16
-box.ClearTextOnFocus = false
-Instance.new("UICorner", box)
-local boxstroke = Instance.new("UIStroke", box)
-boxstroke.Thickness = 1.5
-boxstroke.Color = Color3.fromRGB(255, 255, 255)
+local textbox = Instance.new("TextBox", inputFrame)
+textbox.PlaceholderText = "Enter Key..."
+textbox.Size = UDim2.new(0.8, 0, 0, 36)
+textbox.Position = UDim2.new(0.1, 0, 0, 60)
+textbox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textbox.ClearTextOnFocus = false
+textbox.TextScaled = true
+textbox.Font = Enum.Font.Gotham
+Instance.new("UICorner", textbox)
 
--- Target button
-local button = Instance.new("TextButton", frame)
-button.Text = "Target Player"
-button.Size = UDim2.new(1, -20, 0, 30)
-button.Position = UDim2.new(0, 10, 0, 100)
-button.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-button.TextColor3 = Color3.fromRGB(255, 255, 255)
-Instance.new("UICorner", button)
+local submitBtn = Instance.new("TextButton", inputFrame)
+submitBtn.Size = UDim2.new(0.5, 0, 0, 30)
+submitBtn.Position = UDim2.new(0.25, 0, 1, -40)
+submitBtn.Text = "Submit"
+submitBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+submitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+submitBtn.Font = Enum.Font.GothamBold
+submitBtn.TextScaled = true
+Instance.new("UICorner", submitBtn)
 
--- Closest to Mouse button
-local mouseBtn = Instance.new("TextButton", frame)
-mouseBtn.Text = "Closest to Mouse"
-mouseBtn.Size = UDim2.new(1, -20, 0, 30)
-mouseBtn.Position = UDim2.new(0, 10, 0, 140)
-mouseBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-mouseBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-Instance.new("UICorner", mouseBtn)
-
--- FOV Circle
-local fovCircle = Drawing.new("Circle")
-fovCircle.Color = Color3.new(1, 1, 1)
-fovCircle.Radius = 75
-fovCircle.Visible = true
-fovCircle.Thickness = 2
-fovCircle.Transparency = 1
-fovCircle.Filled = false
-RunService.RenderStepped:Connect(function()
-    fovCircle.Position = Vector2.new(Mouse.X, Mouse.Y + 36)
-end)
-
--- Tracer Line from Mouse to Target (White Neon)
-local tracerLine = Drawing.new("Line")
-tracerLine.Thickness = 2
-tracerLine.Color = Color3.fromRGB(255, 255, 255)
-tracerLine.Transparency = 1
-tracerLine.Visible = false
-tracerLine.ZIndex = 2
-tracerLine.Mode = "Neon"
-
--- Highlight functions
-local function highlight(plr)
-    if plr and plr.Character then
-        for _, obj in pairs(plr.Character:GetChildren()) do
-            if obj:IsA("Highlight") then obj:Destroy() end
-        end
-        local hl = Instance.new("Highlight", plr.Character)
-        hl.FillColor = Color3.new(1, 1, 1)
-        hl.OutlineColor = Color3.new(0, 0, 0)
-        hl.FillTransparency = 0.4
-        hl.OutlineTransparency = 0
-    end
-end
-
-local function unhighlight(plr)
-    if plr and plr.Character then
-        for _, obj in pairs(plr.Character:GetChildren()) do
-            if obj:IsA("Highlight") then obj:Destroy() end
-        end
-    end
-end
-
--- Target Info Panel (bottom center)
-local infoPanel = Instance.new("Frame", gui)
-infoPanel.AnchorPoint = Vector2.new(0.5, 1)
-infoPanel.Position = UDim2.new(0.5, 0, 1, -30)
-infoPanel.Size = UDim2.new(0, 340, 0, 80)
-infoPanel.BackgroundColor3 = Color3.new(0, 0, 0)
-infoPanel.BackgroundTransparency = 0.2
-infoPanel.Visible = false
-local panelCorner = Instance.new("UICorner", infoPanel)
-panelCorner.CornerRadius = UDim.new(0, 18)
-local panelStroke = Instance.new("UIStroke", infoPanel)
-panelStroke.Thickness = 2
-panelStroke.Color = Color3.new(1, 1, 1)
-
-local thumb = Instance.new("ImageLabel", infoPanel)
-thumb.Size = UDim2.new(0, 64, 0, 64)
-thumb.Position = UDim2.new(0, 10, 0.5, -32)
-thumb.BackgroundTransparency = 1
-thumb.Image = ""
-
-local uname = Instance.new("TextLabel", infoPanel)
-uname.Size = UDim2.new(0, 140, 0, 32)
-uname.Position = UDim2.new(0, 84, 0, 10)
-uname.BackgroundTransparency = 1
-uname.TextColor3 = Color3.fromRGB(255, 255, 255)
-uname.TextStrokeTransparency = 0.8
-uname.Text = "Username"
-uname.TextScaled = true
-uname.Font = Enum.Font.GothamSemibold
-
-local healthLabel = Instance.new("TextLabel", infoPanel)
-healthLabel.Size = UDim2.new(0, 140, 0, 32)
-healthLabel.Position = UDim2.new(0, 84, 0, 42)
-healthLabel.BackgroundTransparency = 1
-healthLabel.TextColor3 = Color3.fromRGB(120, 255, 120)
-healthLabel.TextStrokeTransparency = 0.85
-healthLabel.Text = "Health: --"
-healthLabel.TextScaled = true
-healthLabel.Font = Enum.Font.Gotham
-
-local displayNameLabel = Instance.new("TextLabel", infoPanel)
-displayNameLabel.Size = UDim2.new(0, 100, 0, 20)
-displayNameLabel.Position = UDim2.new(0, 230, 0, 10)
-displayNameLabel.BackgroundTransparency = 1
-displayNameLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-displayNameLabel.Text = "DisplayName"
-displayNameLabel.TextScaled = true
-displayNameLabel.Font = Enum.Font.Gotham
-
-infoPanel.ZIndex = 51
-thumb.ZIndex = 51
-uname.ZIndex = 51
-healthLabel.ZIndex = 51
-displayNameLabel.ZIndex = 51
-
-local function updateInfoPanel(target)
-    if target and target.Character then
-        infoPanel.Visible = true
-        uname.Text = target.Name
-        displayNameLabel.Text = target.DisplayName or ""
-        local userId = target.UserId
-        local content, isReady = Players:GetUserThumbnailAsync(userId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
-        thumb.Image = content
-        local hum = target.Character:FindFirstChildOfClass("Humanoid")
-        if hum then
-            healthLabel.Text = "Health: " .. math.floor(hum.Health) .. "/" .. math.floor(hum.MaxHealth)
-        else
-            healthLabel.Text = "Health: --"
-        end
+submitBtn.MouseButton1Click:Connect(function()
+    if textbox.Text == CORRECT_KEY then
+        inputGui:Destroy()
+        runMainScript()
     else
-        infoPanel.Visible = false
+        textbox.Text = ""
+        label.Text = ":x: Incorrect Key"
+        wait(1)
+        label.Text = "Enter Key to Access"
     end
+end)
+
+    -- [ Insert your entire script content here — everything you shared above ]
+    -- For brevity, I'll stop repeating it in this reply. You should paste your full code here.
+
 end
 
-local currentTarget = nil
+--// Prompt for key input
+local player = game.Players.LocalPlayer
+local inputGui = Instance.new("ScreenGui")
+inputGui.Name = "KeyInputGui"
+inputGui.ResetOnSpawn = false
+inputGui.Parent = player:WaitForChild("PlayerGui")
 
--- Targeting buttons
-button.MouseButton1Click:Connect(function()
-    local name = box.Text:lower()
-    if name == "" then return end
-    for _, plr in ipairs(Players:GetPlayers()) do
-        if plr.Name:lower():find(name) and plr ~= Players.LocalPlayer then
-            if not table.find(targetPlayers, plr) then
-                table.insert(targetPlayers, plr)
-                highlight(plr)
-            end
-        end
-    end
-    local targetNames = {}
-    for _, plr in ipairs(targetPlayers) do
-        table.insert(targetNames, plr.Name)
-    end
-    label.Text = #targetPlayers > 0 and "Target : " .. table.concat(targetNames, ", ") or "No Targets"
-end)
+local inputFrame = Instance.new("Frame")
+inputFrame.Size = UDim2.new(0, 300, 0, 150)
+inputFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
+inputFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+inputFrame.BackgroundTransparency = 0.4
+inputFrame.Parent = inputGui
 
-mouseBtn.MouseButton1Click:Connect(function()
-    local mousePos = Mouse.Hit.p
-    local closestDist = math.huge
-    local closestPlayer = nil
-    for _, plr in ipairs(Players:GetPlayers()) do
-        if plr ~= Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild(AimPart) then
-            local part = plr.Character[AimPart]
-            local dist = (mousePos - part.Position).Magnitude
-            if dist < closestDist then
-                closestDist = dist
-                closestPlayer = plr
-            end
-        end
-    end
-    if closestPlayer and not table.find(targetPlayers, closestPlayer) then
-        table.insert(targetPlayers, closestPlayer)
-        highlight(closestPlayer)
-        label.Text = "Target : " .. closestPlayer.Name
-    end
-end)
+local corner = Instance.new("UICorner", inputFrame)
+corner.CornerRadius = UDim.new(0, 12)
 
--- Keybind to retarget (F)
-UserInputService.InputBegan:Connect(function(input, gp)
-    if gp then return end
-    if input.KeyCode == Enum.KeyCode.F then
-        for _, plr in pairs(targetPlayers) do
-            unhighlight(plr)
-        end
-        targetPlayers = {}
-        label.Text = "No Targets"
-        currentTarget = nil
-        updateInfoPanel(nil)
+local stroke = Instance.new("UIStroke", inputFrame)
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(255, 255, 255)
 
-        local mousePosition = Mouse.Hit.p
-        local closestDistance = math.huge
-        local closestPlayer
+local label = Instance.new("TextLabel", inputFrame)
+label.Size = UDim2.new(1, 0, 0, 40)
+label.Position = UDim2.new(0, 0, 0, 10)
+label.BackgroundTransparency = 1
+label.Text = "Enter Key to Access"
+label.TextColor3 = Color3.new(1, 1, 1)
+label.Font = Enum.Font.GothamBold
+label.TextScaled = true
 
-        for _, plr in ipairs(Players:GetPlayers()) do
-            if plr ~= Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild(AimPart) then
-                local part = plr.Character[AimPart]
-                local dist = (mousePosition - part.Position).Magnitude
-                if dist < 50 and dist < closestDistance then
-                    closestDistance = dist
-                    closestPlayer = plr
-                end
-            end
-        end
+local textbox = Instance.new("TextBox", inputFrame)
+textbox.PlaceholderText = "Enter Key..."
+textbox.Size = UDim2.new(0.8, 0, 0, 36)
+textbox.Position = UDim2.new(0.1, 0, 0, 60)
+textbox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+textbox.TextColor3 = Color3.fromRGB(255, 255, 255)
+textbox.ClearTextOnFocus = false
+textbox.TextScaled = true
+textbox.Font = Enum.Font.Gotham
+Instance.new("UICorner", textbox)
 
-        if closestPlayer and not table.find(targetPlayers, closestPlayer) then
-            table.insert(targetPlayers, closestPlayer)
-            highlight(closestPlayer)
-            currentTarget = closestPlayer
-            updateInfoPanel(closestPlayer)
-            label.Text = "Target : " .. closestPlayer.Name
-        end
-    end
-end)
+local submitBtn = Instance.new("TextButton", inputFrame)
+submitBtn.Size = UDim2.new(0.5, 0, 0, 30)
+submitBtn.Position = UDim2.new(0.25, 0, 1, -40)
+submitBtn.Text = "Submit"
+submitBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+submitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+submitBtn.Font = Enum.Font.GothamBold
+submitBtn.TextScaled = true
+Instance.new("UICorner", submitBtn)
 
--- Main Loop
-RunService.Heartbeat:Connect(function()
-    for _, target in ipairs(targetPlayers) do
-        if target and target.Character then
-            local char = target.Character
-            local hrp = char:FindFirstChild("HumanoidRootPart")
-            local hum = char:FindFirstChildOfClass("Humanoid")
-            if hrp and hum and hum.Health > 10 and not char:FindFirstChildOfClass("ForceField") then
-                local myChar = Players.LocalPlayer.Character
-                if myChar and myChar:FindFirstChild("HumanoidRootPart") then
-                    local origin = myChar.HumanoidRootPart.Position
-                    local direction = myChar.HumanoidRootPart.CFrame.LookVector
-                    local shootPos = origin + direction * 10
-                    local normal = direction.Unit
-                    local offset = normal * 0.5
-
-                    local Args = {
-                        [1] = "Shoot",
-                        [2] = {
-                            [1] = {
-                                [1] = { ["Instance"] = char[AimPart], ["Normal"] = normal, ["Position"] = origin }
-                            },
-                            [2] = {
-                                [1] = { ["thePart"] = char[AimPart], ["theOffset"] = CFrame.new(offset) }
-                            },
-                            [3] = shootPos,
-                            [4] = origin,
-                            [5] = tick()
-                        }
-                    }
-                    ReplicatedStorage.MainEvent:FireServer(unpack(Args))
-                end
-            end
-        end
-    end
-
-    if currentTarget and currentTarget.Character and currentTarget.Character:FindFirstChild(AimPart) then
-        local headPos, onScreen = workspace.CurrentCamera:WorldToViewportPoint(currentTarget.Character[AimPart].Position)
-        tracerLine.Visible = onScreen
-        if onScreen then
-            tracerLine.From = Vector2.new(Mouse.X, Mouse.Y + 36)
-            tracerLine.To = Vector2.new(headPos.X, headPos.Y)
-        end
+submitBtn.MouseButton1Click:Connect(function()
+    if textbox.Text == CORRECT_KEY then
+        inputGui:Destroy()
+        runMainScript()
     else
-        tracerLine.Visible = false
-    end
-
-    if currentTarget and currentTarget.Character then
-        local hum = currentTarget.Character:FindFirstChildOfClass("Humanoid")
-        if hum then
-            healthLabel.Text = "Health: " .. math.floor(hum.Health) .. "/" .. math.floor(hum.MaxHealth)
-        else
-            healthLabel.Text = "Health: --"
-        end
-    else
-        infoPanel.Visible = false
-    end
-end)
-
--- Paste this at the end of your main script
-
--- Toggle Button for Visuals
-local visualsBtn = Instance.new("TextButton", frame)
-visualsBtn.Text = "Toggle Visuals"
-visualsBtn.Size = UDim2.new(1, -20, 0, 30)
-visualsBtn.Position = UDim2.new(0, 10, 0, 180)
-visualsBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-visualsBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-Instance.new("UICorner", visualsBtn)
-
--- Visual toggle state
-local visualsEnabled = false
-
-local function enableAllVisuals()
-    local player = Players.LocalPlayer
-    local char = player.Character or player.CharacterAdded:Wait()
-
-    local att = Instance.new("Attachment")
-    att.Name = "VisualsAttachment"
-    att.Parent = char:WaitForChild("LowerTorso")
-
-    -- Neon White Trail
-    local a0 = Instance.new("Attachment")
-    a0.Position = Vector3.new(0, 0.5, 0)
-    a0.Name = "TrailAttachment0"
-    a0.Parent = char.LowerTorso
-
-    local a1 = Instance.new("Attachment")
-    a1.Position = Vector3.new(0, -0.5, 0)
-    a1.Name = "TrailAttachment1"
-    a1.Parent = char.LowerTorso
-
-    local trail = Instance.new("Trail")
-    trail.Attachment0 = a0
-    trail.Attachment1 = a1
-    trail.Color = ColorSequence.new(Color3.fromRGB(255, 255, 255))
-    trail.LightEmission = 1
-    trail.Transparency = NumberSequence.new{
-        NumberSequenceKeypoint.new(0, 0.2),
-        NumberSequenceKeypoint.new(1, 1)
-    }
-    trail.Lifetime = 0.35
-    trail.MinLength = 0.1
-    trail.WidthScale = NumberSequence.new{
-        NumberSequenceKeypoint.new(0, 1),
-        NumberSequenceKeypoint.new(1, 0.5)
-    }
-    trail.FaceCamera = true
-    trail.Name = "NeonTrail"
-    trail.Parent = char.LowerTorso
-
-    -- Black Fire
-    local fire = Instance.new("ParticleEmitter")
-    fire.Name = "Black Fire"
-    fire.Texture = "rbxasset://textures/particles/fire_main.dds"
-    fire.Color = ColorSequence.new(Color3.fromRGB(5, 5, 5))
-    fire.Size = NumberSequence.new(2, 4)
-    fire.Transparency = NumberSequence.new(0.2, 1)
-    fire.Lifetime = NumberRange.new(0.8, 1.2)
-    fire.Rate = 25
-    fire.Speed = NumberRange.new(0, 1)
-    fire.RotSpeed = NumberRange.new(-90, 90)
-    fire.LightEmission = 0.5
-    fire.VelocitySpread = 20
-    fire.ZOffset = 0
-    fire.Parent = att
-
-    -- Black Sparks
-    local sparks = Instance.new("ParticleEmitter")
-    sparks.Name = "Black Sparks"
-    sparks.Texture = "rbxassetid://296874871"
-    sparks.Color = ColorSequence.new(Color3.fromRGB(10, 10, 10))
-    sparks.Size = NumberSequence.new(0.2, 0)
-    sparks.Transparency = NumberSequence.new(0, 1)
-    sparks.Lifetime = NumberRange.new(0.2, 0.4)
-    sparks.Speed = NumberRange.new(5, 10)
-    sparks.Rate = 60
-    sparks.ZOffset = 1
-    sparks.LightEmission = 1
-    sparks.VelocitySpread = 360
-    sparks.Parent = att
-
-    -- Void Smoke
-    local smoke = Instance.new("ParticleEmitter")
-    smoke.Name = "Void Smoke"
-    smoke.Texture = "rbxasset://textures/particles/smoke_main.dds"
-    smoke.Color = ColorSequence.new(Color3.fromRGB(15, 15, 15))
-    smoke.Size = NumberSequence.new(1, 3)
-    smoke.Transparency = NumberSequence.new(0.2, 1)
-    smoke.Lifetime = NumberRange.new(1.5, 2.5)
-    smoke.Speed = NumberRange.new(0.5, 1.5)
-    smoke.Rate = 15
-    smoke.Acceleration = Vector3.new(0, 2, 0)
-    smoke.LightEmission = 0.2
-    smoke.ZOffset = -1
-    smoke.Parent = att
-
-    -- Shadow Pulse
-    local pulse = Instance.new("ParticleEmitter")
-    pulse.Name = "Shadow Pulse"
-    pulse.Texture = "rbxassetid://258128463"
-    pulse.Color = ColorSequence.new(Color3.fromRGB(0, 0, 0))
-    pulse.Transparency = NumberSequence.new(0, 1)
-    pulse.Size = NumberSequence.new(1, 5)
-    pulse.Lifetime = NumberRange.new(1)
-    pulse.Rate = 2
-    pulse.Speed = NumberRange.new(0)
-    pulse.RotSpeed = NumberRange.new(10, 30)
-    pulse.LightEmission = 0
-    pulse.ZOffset = 2
-    pulse.Parent = att
-
-    -- Skibidi RedRizz Visuals
-    local Attachment = Instance.new("Attachment")
-    Attachment.Name = "SkibidiAttachment"
-    Attachment.Parent = char.LowerTorso
-
-    local function addEmitter(name, texture, color, lifetime, rate, size, speed)
-        local emitter = Instance.new("ParticleEmitter")
-        emitter.Name = name
-        emitter.Texture = texture
-        emitter.Color = color
-        emitter.Lifetime = lifetime
-        emitter.Rate = rate
-        emitter.Size = size
-        emitter.Speed = speed
-        emitter.LightEmission = 1
-        emitter.Parent = Attachment
-        return emitter
-    end
-
-    addEmitter("Healing Wave 1", "rbxassetid://8047533775", ColorSequence.new(Color3.new(0, 0, 0)), NumberRange.new(1.5), 20, NumberSequence.new(3), NumberRange.new(3, 6))
-    addEmitter("Healing Wave 2", "rbxassetid://8047796070", ColorSequence.new(Color3.new(0.1, 0.1, 0.1)), NumberRange.new(1.5), 20, NumberSequence.new(3), NumberRange.new(3, 5))
-    addEmitter("Sparks", "rbxassetid://8611887361", ColorSequence.new(Color3.new(0, 0, 0)), NumberRange.new(1), 40, NumberSequence.new(1), NumberRange.new(5, 15))
-    addEmitter("Star Sparks", "rbxassetid://8611887703", ColorSequence.new(Color3.new(0.1, 0.1, 0.1)), NumberRange.new(1.5), 40, NumberSequence.new(1), NumberRange.new(5, 10))
-end
-
-visualsBtn.MouseButton1Click:Connect(function()
-    visualsEnabled = not visualsEnabled
-    visualsBtn.Text = visualsEnabled and "Disable Visuals" or "Enable Visuals"
-
-    local char = Players.LocalPlayer.Character
-    if not char then return end
-
-    if visualsEnabled then
-        enableAllVisuals()
-    else
-        for _, obj in ipairs(char:GetDescendants()) do
-            if obj:IsA("Trail") or obj:IsA("ParticleEmitter") or obj:IsA("Attachment") then
-                if obj.Name:match("Visuals") or obj.Name:match("Attachment") or obj.Name:match("Skibidi") or obj:IsA("Trail") then
-                    obj:Destroy()
-                end
-            end
-        end
-    end
-end)
-
--- Reapply visuals on respawn if toggle is on
-Players.LocalPlayer.CharacterAdded:Connect(function()
-    if visualsEnabled then
-        task.wait(0.5)
-        enableAllVisuals()
-    end
-end)
-
---// DARK MODE + GALAXY SKY (Balanced Version)
-
--- Create the toggle button
-local darkModeBtn = Instance.new("TextButton")
-darkModeBtn.Text = "Cosmic Contrast"
-darkModeBtn.Size = UDim2.new(1, -20, 0, 30)
-darkModeBtn.Position = UDim2.new(0, 10, 0, 220)
-darkModeBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-darkModeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-darkModeBtn.Parent = frame
-Instance.new("UICorner", darkModeBtn)
-
--- Galaxy skybox asset IDs
-local galaxySkybox = {
-    ["Bk"] = "rbxassetid://159454299",
-    ["Dn"] = "rbxassetid://159454286",
-    ["Ft"] = "rbxassetid://159454293",
-    ["Lf"] = "rbxassetid://159454296",
-    ["Rt"] = "rbxassetid://159454300",
-    ["Up"] = "rbxassetid://159454288"
-}
-
--- Apply balanced cosmic visuals
-local function applyCosmicVisuals()
-    local lighting = game:GetService("Lighting")
-    lighting.Ambient = Color3.fromRGB(35, 35, 35)
-    lighting.OutdoorAmbient = Color3.fromRGB(60, 60, 60)
-    lighting.Brightness = 3
-    lighting.ClockTime = 2 -- Night but not pitch black
-    lighting.FogColor = Color3.fromRGB(10, 10, 10)
-    lighting.FogEnd = 1000
-    lighting.ColorShift_Top = Color3.fromRGB(255, 255, 255)
-    lighting.ColorShift_Bottom = Color3.fromRGB(200, 200, 200)
-
-    -- Add white neon light effect
-    local glow = Instance.new("PointLight")
-    glow.Name = "NeonAmbient"
-    glow.Color = Color3.new(1, 1, 1)
-    glow.Range = 40
-    glow.Brightness = 2
-    glow.Shadows = true
-    glow.Parent = workspace:FindFirstChild("Camera") or workspace
-
-    -- Add galaxy sky
-    if workspace:FindFirstChildOfClass("Sky") then
-        workspace:FindFirstChildOfClass("Sky"):Destroy()
-    end
-    local sky = Instance.new("Sky")
-    sky.Name = "CosmicSky"
-    for face, id in pairs(galaxySkybox) do
-        sky[face.."Skybox"] = id
-    end
-    sky.Parent = lighting
-end
-
--- Restore default visuals
-local function restoreDefaultVisuals()
-    local lighting = game:GetService("Lighting")
-    lighting.Ambient = Color3.fromRGB(128, 128, 128)
-    lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
-    lighting.Brightness = 2
-    lighting.ClockTime = 14
-    lighting.FogEnd = 100000
-    lighting.ColorShift_Top = Color3.new(0, 0, 0)
-    lighting.ColorShift_Bottom = Color3.new(0, 0, 0)
-
-    if lighting:FindFirstChild("CosmicSky") then
-        lighting:FindFirstChild("CosmicSky"):Destroy()
-    end
-    if workspace:FindFirstChild("NeonAmbient") then
-        workspace:FindFirstChild("NeonAmbient"):Destroy()
-    end
-end
-
--- Toggle handler
-local visualsOn = false
-
-darkModeBtn.MouseButton1Click:Connect(function()
-    if not visualsOn then
-        applyCosmicVisuals()
-        darkModeBtn.Text = "Disable Cosmic Mode"
-    else
-        restoreDefaultVisuals()
-        darkModeBtn.Text = "Cosmic Contrast"
-    end
-    visualsOn = not visualsOn
-end)
-    print("Correct key! Script is running...")
-    -- For example:
-    -- game.Workspace.Part.BrickColor = BrickColor.new("Bright red")
-    -- (replace the above with your real main script)
-end
-
-button.MouseButton1Click:Connect(function()
-    if textBox.Text == key then
-        mainScript()
-    else
-        textBox.Text = ""
-        textBox.PlaceholderText = "Incorrect Key, Try Again"
+        textbox.Text = ""
+        label.Text = "❌ Incorrect Key"
+        wait(1)
+        label.Text = "Enter Key to Access"
     end
 end)
